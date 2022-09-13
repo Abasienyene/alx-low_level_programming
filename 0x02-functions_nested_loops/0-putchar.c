@@ -1,4 +1,4 @@
-#include "studio.h"
+#include "main.h"
 
 /**
  * main -  prints -Putchar, followed by a new line
