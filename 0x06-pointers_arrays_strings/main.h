@@ -280,4 +280,5 @@ void swap_int(int *a, int *b);
  * Return: returns length
  */
 int _strlen(char *s);
+char *infinite_add(char *n1, char *n2, char *r, int size_r);
 #endif
