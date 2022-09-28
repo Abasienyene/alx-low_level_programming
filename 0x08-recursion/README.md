@@ -30,4 +30,4 @@ An introductory project on:
 ### Advanced
 **[100-wildcmp.c](100-wildcmp.c)** - function that compares two strings and returns 1 if the strings can be considered identical, otherwise returns 0.
 
-## Compiled by **[Abasienyene Lawrence](Abasienyene Lawrence)**
+## Compiled by **[Abasienyene Lawrence](https://github.com/Abasienyene)**
