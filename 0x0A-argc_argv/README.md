@@ -1,4 +1,4 @@
-# 0x09. C - argc, argv
+# 0x0A-argc_argv - argc, argv
 ## About
 An introductory project on:
 - How to use arguments passed to your program
