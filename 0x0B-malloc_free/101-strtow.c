@@ -1,4 +1,4 @@
-#include "main.h"
+#include "holberton.h"
 #include <stdlib.h>
 
 /**
@@ -13,7 +13,7 @@ int wrdcnt(char *s)
 
 	for (i = 0; s[i]; i++)
 	{
-		if (s[i] == )
+		if (s[i] == ' ')
 		{
 			if (s[i + 1] != ' ' && s[i + 1] != '\0')
 				n++;
