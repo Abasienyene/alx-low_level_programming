@@ -1,4 +1,4 @@
-#include ".h"
+#include "m.h"
 
 /**
  * get_endianness - checks if a machine is little or big endian
