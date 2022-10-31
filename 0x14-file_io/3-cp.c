@@ -1,51 +1,54 @@
 #include "main.h"
-
 /**
- * main - copies the content of a file to another file
- * @argc: number of arguments passed to the program
- * @argv: array of arguments
- *
- * Return: Always 0 (Success)
+ * main - program to copy
+ * @ac: argument count
+ * @av: array of arguments
+ * Return: a value
  */
-int main(int argc, char *argv[])
+int main(int ac, char **av)
 {
-	int fd_r, fd_w, r, a, b;
-	char buf[BUFSIZ];
+	int fdFrum, fdToo, wrote, readed;
+	char buff[1024];
 
-	if (argc != 3)
+	if (ac != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	fd_r = open(argv[1], O_RDONLY);
-	if (fd_r < 0)
+	fdFrum = open(av[1], O_RDONLY);
+	if (fdFrum == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]);
 		exit(98);
 	}
-	fd_w = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	while ((r = read(fd_r, buf, BUFSIZ)) > 0)
+	fdToo = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	if (fdToo == -1)
 	{
-		if (fd_w < 0 || write(fd_w, buf, r) != r)
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
+		exit(99);
+	}
+	while ((readed = read(fdFrum, buff, 1024)) > 0)
+	{
+		wrote = write(fdToo, buff, readed);
+		if (wrote == -1)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			close(fd_r);
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
 			exit(99);
 		}
 	}
-	if (r < 0)
+	if (readed == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]);
 		exit(98);
 	}
-	a = close(fd_r);
-	b = close(fd_w);
-	if (a < 0 || b < 0)
+	if (close(fdFrum) == -1)
 	{
-		if (a < 0)
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_r);
-		if (b < 0)
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_w);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d", fdFrum);
+		exit(100);
+	}
+	if (close(fdToo) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d", fdToo);
 		exit(100);
 	}
 	return (0);
